@@ -37,15 +37,19 @@ if st.sidebar.checkbox('Show raw data'):
     st.subheader('Raw Data')
     st.write(data.head())
 
-# User input for filtering data by product category
-category_filter = st.sidebar.multiselect(
-    'Filter by Product Category', 
-    options=data['product_category'].unique(), 
-    default=data['product_category'].unique()
+# User input for selecting one product category
+selected_category = st.sidebar.selectbox(
+    'Select Product Category', 
+    options=data['product_category'].unique()
 )
 
-filtered_data = data[data['product_category'].isin(category_filter)]
+# Filter the data based on the selected category
+filtered_data = data[data['product_category'] == selected_category]
 st.write(f"Filtered dataset shape: {filtered_data.shape}")
+
+# Optional: Display a message if the filtered dataset is empty
+if filtered_data.empty:
+    st.warning("The filtered dataset is empty. Please check the selected category.")
 
 # Select features for prediction
 features = ['transaction_qty', 'unit_price', 'store_id', 'product_category', 'product_type']
