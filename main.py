@@ -25,7 +25,7 @@ if uploaded_file is not None:
 # Load the dataset
 @st.cache_data
 def load_data():
-    data = pd.read_csv('c:/Coffee/coffee_shop_sales.csv')
+    data = pd.read_csv('coffee_shop_sales.csv')
     data['total_sales'] = data['transaction_qty'] * data['unit_price']
     return data
 
